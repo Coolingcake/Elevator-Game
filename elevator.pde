@@ -6,10 +6,11 @@ int lastPlatformAddedTime = 0;
 
 int stepCount = 0;
 
+int platformLength = 500/4;
 
 void setup() {
   size(500, 800);
-
+  platformLength = width/4;
   for (int i = ((height+platformDistance) / platformDistance)-1; i >= 0; i--) {
     platforms.add(new Platform(int(random(0, 2))));
     for (int j = platforms.size()-1; j >= 0; j--) {
@@ -18,27 +19,31 @@ void setup() {
   }
   platforms.add(new Platform(int(random(0, 2))));
   platforms.remove(0);
-  /*
+
   for (int j = platforms.size()-1; j > 0; j--) {
     if (j == 1) {
       if (platforms.get(j).side == 0) {
-        platforms.get(j).moveX(width/4);
+        platforms.get(j).moveX(platformLength);
       } else if (platforms.get(j).side == 1) {
-        platforms.get(j).moveX(-width/4);
+        platforms.get(j).moveX(-platformLength);
       }
     } else {
-      if (platforms.get(j-1).side == 0) {
-        platforms.get(j).moveX(-platforms.get(j).pos.x);
-        platforms.get(j).moveX(width/2);
-      } else if (platforms.get(j-1).side == 1) {
-        platforms.get(j).moveX(platforms.get(j).pos.x);
-        platforms.get(j).moveX(-width/2);
-      }
-      
+      shift(j-2, j-1);
     }
-    
   }
-  */
+  for (int i = 0; i < platforms.size(); i++) {
+    move();
+  }
+  stepCount = 0;
+
+  float firstPlatformX = platforms.get(1).pos.x;
+  float targetX = platformLength;
+  float offsetX = targetX - firstPlatformX;
+
+  for (int i = 0; i < platforms.size(); i++) {
+    Platform platform = platforms.get(i);
+    platform.moveX(offsetX);
+  }
 }
 
 void draw() {
@@ -59,13 +64,22 @@ void move() {
     platforms.get(i).moveY(platformDistance);
   }
 
-
-
   platforms.add(new Platform(int(random(0, 2))));
+
+  shift(platforms.size()-2, platforms.size()-1);
 
   platforms.remove(0);
 
   stepCount++;
+}
+
+void shift(int prev, int post) {
+  platforms.get(post).setX(platforms.get(prev).pos.x);
+  if (platforms.get(post).side == 0) {
+    platforms.get(post).moveX(-platformLength);
+  } else if (platforms.get(post).side == 1) {
+    platforms.get(post).moveX(platformLength);
+  }
 }
 
 void keyPressed() {
@@ -73,6 +87,9 @@ void keyPressed() {
     if (key == 'a' || keyCode == LEFT) {
       if (platforms.get(2).side == 0) {
         move();
+        for (int i = 0; i < platforms.size(); i++) {
+          platforms.get(i).moveX(platformLength);
+        }
       } else {
         stepCount = 0;
       }
@@ -80,6 +97,9 @@ void keyPressed() {
     if (key == 'd' || keyCode == RIGHT) {
       if (platforms.get(2).side == 1) {
         move();
+        for (int i = 0; i < platforms.size(); i++) {
+          platforms.get(i).moveX(-platformLength);
+        }
       } else {
         stepCount = 0;
       }

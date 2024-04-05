@@ -1,6 +1,7 @@
 class Platform {
   int side;
   PVector pos;
+  float platformLength = 125;
 
   float projectedY;
   float projectedX;
@@ -30,11 +31,15 @@ class Platform {
   void moveX(float num) {
     pos.x += num;
   }
+  
+  void setX(float num) {
+    pos.x = num;
+  }
 
   void render(int c) {
     stroke(c);
     projectedY = lerp(projectedY, pos.y, 0.1);
     projectedX = lerp(projectedX, pos.x, 0.1);
-    line(projectedX, projectedY, projectedX+width/2, projectedY);
+    line(projectedX, projectedY, projectedX+platformLength*2, projectedY);
   }
 }
