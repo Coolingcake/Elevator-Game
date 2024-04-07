@@ -11,13 +11,18 @@ int platformLength = 500/4;
 
 boolean shifted = false;
 
+float stamina = 100;
+
 SoundFile stepSound;
+SoundFile spawnSound;
+boolean played = false;
 
 void setup() {
-  size(500, 800);
+  size(500, 1000);
   //fullScreen();
   stepSound = new SoundFile(this, "Sounds/Step Up Sound.wav");
-  platformLength = width/4;
+  spawnSound = new SoundFile(this, "Sounds/Player Spawn Sound.wav");
+  platformLength = width/2 - platformLength;
   for (int i = ((height+platformDistance) / platformDistance)-1; i >= 0; i--) {
     platforms.add(new Platform(int(random(0, 2))));
     for (int j = platforms.size()-1; j >= 0; j--) {
@@ -41,6 +46,10 @@ void setup() {
   for (int i = 0; i < platforms.size(); i++) {
     move();
   }
+  
+  if (stepCount == 0) {
+    
+  }
   stepCount = 0;
 
   float firstPlatformX = platforms.get(1).pos.x;
@@ -56,13 +65,29 @@ void setup() {
 void draw() {
   background(255);
   textSize(100);
-  fill(100);
+  if (stepCount == 0) {
+    fill(#FF0000);
+    if (!played) {
+      spawnSound.play();
+      played = true;
+    }
+  } else {
+    fill(100);
+  }
   text(stepCount, 25, 75);
   for (int i = 0; i < platforms.size(); i++) {
     if (i == 1) {
       platforms.get(i).render(#FF0000);
     } else
       platforms.get(i).render(#000000);
+  }
+  fill(#00FF00);
+  rect(0, height -10, map(stamina, 0, 100, 0, width), height);
+  if (stamina < 0) {
+    stamina = 100;
+    stepCount = 0;
+  } else {
+    stamina -= 0.4;
   }
 }
 
@@ -97,22 +122,26 @@ void keyPressed() {
       if (platforms.get(2).side == 0) {
         move();
         stepSound.play();
+        stamina = 100;
         for (int i = 0; i < platforms.size(); i++) {
           platforms.get(i).moveX(platformLength);
         }
       } else {
         stepCount = 0;
+        played = false;
       }
     }
     if (key == 'd' || keyCode == RIGHT) {
       if (platforms.get(2).side == 1) {
         move();
-        //stepSound.play();
+        stepSound.play();
+        stamina = 100;
         for (int i = 0; i < platforms.size(); i++) {
           platforms.get(i).moveX(-platformLength);
         }
       } else {
         stepCount = 0;
+        played = false;
       }
     }
     lastPlatformAddedTime = millis();

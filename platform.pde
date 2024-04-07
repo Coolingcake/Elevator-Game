@@ -13,7 +13,7 @@ class Platform {
 
   void initialize() {
     if (side == 0) {
-      pos = new PVector(0, 0);
+      pos = new PVector((width/2) - platformLength, 0);
     }
     if (side == 1) {
       pos = new PVector(width/2, 0);
