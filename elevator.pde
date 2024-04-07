@@ -13,9 +13,7 @@ SoundFile stepSound;
 
 void setup() {
   size(500, 800);
-  
   stepSound = new SoundFile(this, "Sounds/Step Up Sound.wav");
-  stepSound.stop();
   platformLength = width/4;
   for (int i = ((height+platformDistance) / platformDistance)-1; i >= 0; i--) {
     platforms.add(new Platform(int(random(0, 2))));
@@ -90,7 +88,7 @@ void shift(int prev, int post) {
 
 void keyPressed() {
   if (millis() - lastPlatformAddedTime >= cooldownDuration) {
-    if (key == 'a' || keyCode == LEFT) {
+    if ((key == 'a' && keyCode == SHIFT) || keyCode == LEFT) {
       if (platforms.get(2).side == 0) {
         move();
         for (int i = 0; i < platforms.size(); i++) {
@@ -100,7 +98,7 @@ void keyPressed() {
         stepCount = 0;
       }
     }
-    if (key == 'd' || keyCode == RIGHT) {
+    if ((key == 'd' && keyCode == SHIFT) || keyCode == RIGHT) {
       if (platforms.get(2).side == 1) {
         move();
         for (int i = 0; i < platforms.size(); i++) {
