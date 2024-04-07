@@ -14,7 +14,7 @@ SoundFile stepSound;
 void setup() {
   size(500, 800);
   
-  stepSound = new SoundFile(this, "Step Up Sound.wav");
+  stepSound = new SoundFile(this, "Sounds/Step Up Sound.wav");
   stepSound.stop();
   platformLength = width/4;
   for (int i = ((height+platformDistance) / platformDistance)-1; i >= 0; i--) {
