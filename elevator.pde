@@ -9,10 +9,13 @@ int stepCount = 0;
 
 int platformLength = 500/4;
 
+boolean shifted = false;
+
 SoundFile stepSound;
 
 void setup() {
   size(500, 800);
+  //fullScreen();
   stepSound = new SoundFile(this, "Sounds/Step Up Sound.wav");
   platformLength = width/4;
   for (int i = ((height+platformDistance) / platformDistance)-1; i >= 0; i--) {
@@ -73,7 +76,6 @@ void move() {
   shift(platforms.size()-2, platforms.size()-1);
 
   platforms.remove(0);
-  stepSound.play();
   stepCount++;
 }
 
@@ -87,10 +89,14 @@ void shift(int prev, int post) {
 }
 
 void keyPressed() {
+  if (keyCode == SHIFT) {
+    shifted = true;
+  }
   if (millis() - lastPlatformAddedTime >= cooldownDuration) {
-    if ((key == 'a' && keyCode == SHIFT) || keyCode == LEFT) {
+    if (key == 'a' || keyCode == LEFT) {
       if (platforms.get(2).side == 0) {
         move();
+        stepSound.play();
         for (int i = 0; i < platforms.size(); i++) {
           platforms.get(i).moveX(platformLength);
         }
@@ -98,9 +104,10 @@ void keyPressed() {
         stepCount = 0;
       }
     }
-    if ((key == 'd' && keyCode == SHIFT) || keyCode == RIGHT) {
+    if (key == 'd' || keyCode == RIGHT) {
       if (platforms.get(2).side == 1) {
         move();
+        //stepSound.play();
         for (int i = 0; i < platforms.size(); i++) {
           platforms.get(i).moveX(-platformLength);
         }
@@ -109,5 +116,10 @@ void keyPressed() {
       }
     }
     lastPlatformAddedTime = millis();
+  }
+}
+void keyReleased() {
+  if (keyCode == SHIFT) {
+    shifted = false;
   }
 }
