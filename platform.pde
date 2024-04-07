@@ -12,14 +12,13 @@ class Platform {
   }
 
   void initialize() {
-    if (side == 0) {
-      pos = new PVector((width/2) - platformLength, 0);
-    }
-    if (side == 1) {
+    if (side == -1) {
+      pos = new PVector((width/2) - platformLength * 2, 0);
+    } else if (side == 0) {
+      pos = new PVector((width/2) - (platformLength/2), 0);
+    } else if (side == 1) {
       pos = new PVector(width/2, 0);
     }
-    
-    
     projectedY = pos.y;
     projectedX = pos.x;
   }
@@ -27,11 +26,11 @@ class Platform {
   void moveY(float num) {
     pos.y += num;
   }
-  
+
   void moveX(float num) {
     pos.x += num;
   }
-  
+
   void setX(float num) {
     pos.x = num;
   }
