@@ -1,3 +1,4 @@
+import processing.sound.*;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 int platformDistance = 100;
 
@@ -8,8 +9,11 @@ int stepCount = 0;
 
 int platformLength = 500/4;
 
+SoundFile file;
+
 void setup() {
   size(500, 800);
+  file = new SoundFile(this, "Step Up Sound.wav");
   platformLength = width/4;
   for (int i = ((height+platformDistance) / platformDistance)-1; i >= 0; i--) {
     platforms.add(new Platform(int(random(0, 2))));
@@ -69,7 +73,7 @@ void move() {
   shift(platforms.size()-2, platforms.size()-1);
 
   platforms.remove(0);
-
+  file.play();
   stepCount++;
 }
 
