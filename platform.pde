@@ -5,6 +5,8 @@ class Platform {
 
   float projectedY;
   float projectedX;
+  
+  PShape p;
 
   Platform (int s) {
     side = s;
@@ -21,6 +23,8 @@ class Platform {
     }
     projectedY = pos.y;
     projectedX = pos.x;
+    
+    
   }
 
   void moveY(float num) {
@@ -36,9 +40,25 @@ class Platform {
   }
 
   void render(int c) {
-    stroke(c);
+    stroke(0);
+    fill(c);
     projectedY = lerp(projectedY, pos.y, 0.1);
     projectedX = lerp(projectedX, pos.x, 0.1);
+    
+    p = createShape();
+    p.beginShape();
+    p.vertex(0,0);
+    p.vertex(platformLength*2, 0);
+    p.vertex(platformLength*2, 10);
+    p.vertex(0, 10);
+    p.vertex(0,0);
+    p.endShape();
+    shape(p, projectedX, projectedY);
+    /*
     line(projectedX, projectedY, projectedX+platformLength*2, projectedY);
+    line(projectedX, projectedY-10, projectedX+platformLength*2, projectedY-10);
+    line(projectedX, projectedY, projectedX, projectedY-10);
+    line(projectedX+platformLength*2, projectedY, projectedX+platformLength*2, projectedY-10);
+    */
   }
 }

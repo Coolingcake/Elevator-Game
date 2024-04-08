@@ -1,3 +1,3 @@
 class player {
-  
+  PVector pos;
 }

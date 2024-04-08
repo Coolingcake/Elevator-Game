@@ -39,7 +39,7 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(#c2d6f6);
   textSize(100);
 
   if (!played) {
