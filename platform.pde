@@ -3,8 +3,8 @@ class Platform {
   PVector pos;
   float platformLength = 125;
 
-  float projectedY;
-  float projectedX;
+
+  PVector projectedPos;
   
   PShape p;
 
@@ -21,10 +21,7 @@ class Platform {
     } else if (side == 1) {
       pos = new PVector(width/2, 0);
     }
-    projectedY = pos.y;
-    projectedX = pos.x;
-    
-    
+    projectedPos = new PVector(pos.x, pos.y);
   }
 
   void moveY(float num) {
@@ -42,8 +39,8 @@ class Platform {
   void render(int c) {
     stroke(0);
     fill(c);
-    projectedY = lerp(projectedY, pos.y, 0.1);
-    projectedX = lerp(projectedX, pos.x, 0.1);
+    projectedPos.y = lerp(projectedPos.y, pos.y, 0.1);
+    projectedPos.x = lerp(projectedPos.x, pos.x, 0.1);
     
     p = createShape();
     p.beginShape();
@@ -53,12 +50,6 @@ class Platform {
     p.vertex(0, 10);
     p.vertex(0,0);
     p.endShape();
-    shape(p, projectedX, projectedY);
-    /*
-    line(projectedX, projectedY, projectedX+platformLength*2, projectedY);
-    line(projectedX, projectedY-10, projectedX+platformLength*2, projectedY-10);
-    line(projectedX, projectedY, projectedX, projectedY-10);
-    line(projectedX+platformLength*2, projectedY, projectedX+platformLength*2, projectedY-10);
-    */
+    shape(p, projectedPos.x, projectedPos.y);
   }
 }

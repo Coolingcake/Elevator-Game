@@ -1,3 +1,11 @@
-class player {
+class Player {
   PVector pos;
+  
+  Player() {
+    
+  }
+  
+  void render() {
+    
+  }
 }
