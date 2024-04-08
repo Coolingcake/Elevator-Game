@@ -1,8 +1,6 @@
 class Platform {
   int side;
   PVector pos;
-  float platformLength = 125;
-
 
   PVector projectedPos;
   

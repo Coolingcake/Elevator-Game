@@ -3,6 +3,8 @@ import java.util.Random;
 ArrayList<Platform> platforms = new ArrayList<Platform>();
 int platformDistance = 100;
 
+Player player;
+
 int stepCount = 0;
 
 int platformLength = 125;
@@ -35,20 +37,25 @@ void setup() {
   for (int i = 0; i < platforms.size(); i++) {
     platforms.get(i).moveX(offsetX);
   }
+  
+  player = new Player();
+  
   setup = false;
 }
 
 void draw() {
   background(#c2d6f6);
-  textSize(100);
-
+  
   if (!played) {
     spawnSound.play();
     played = true;
   }
-  fill(stepCount == 0 ? #FF0000 : 100);
+  
+  
+  fill(stepCount == 0 ? color(255,0,0,150) : color(64,64,64,150));
+  textSize(100);
   text(stepCount, 25, 75);
-
+  
   for (int i = 0; i < platforms.size(); i++) {
     platforms.get(i).render(i == 1 ? #FF0000 : #000000);
   }
@@ -67,6 +74,8 @@ void draw() {
   } else {
     stamina -= 0.4;
   }
+  player.move();
+  player.render();
 }
 
 void kill() {
