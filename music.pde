@@ -2,7 +2,6 @@ import processing.sound.*;
 class MusicPlayer {
   ArrayList<SoundFile> stepSounds = new ArrayList<SoundFile>();
   int totalFiles = 13;
-  String stepSoundFileName = "Sounds/Step Up Sound %d.wav";
   SoundFile spawnSound;
   SoundFile music;
   boolean played = true;
@@ -13,9 +12,9 @@ class MusicPlayer {
   MusicPlayer() {
     spawnSound = new SoundFile(elevator.this, "Sounds/Player Spawn Sound.wav");
     music = new SoundFile(elevator.this, "Music/Queue Time Song 1.wav");
-
+    
     for (int i = 1; i <= totalFiles; i++) {
-      String stepSoundName = String.format(stepSoundFileName, i);
+      String stepSoundName = String.format("Sounds/Step Up Sound %d.wav", i);
       stepSounds.add(new SoundFile(elevator.this, stepSoundName));
     }
   }
@@ -30,9 +29,9 @@ class MusicPlayer {
       }
     } else {
       if (!musicPlayed) {
-        music.play();
-        musicStarted = true;
-        musicPlayed = true;
+        //music.play();
+        //musicStarted = true;
+        //musicPlayed = true;
       }
     }
   }
