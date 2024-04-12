@@ -13,11 +13,11 @@ class Player {
   void move() {
     pos.x = platforms.get(1).projectedPos.x + platformLength;
     pos.y = platforms.get(1).projectedPos.y;
+    projectedPos.x = lerp(projectedPos.x, pos.x, 0.2);
+    projectedPos.y = lerp(projectedPos.y, pos.y, 0.4);
   }
 
   void render() {
-    projectedPos.x = lerp(projectedPos.x, pos.x, 0.2);
-    projectedPos.y = lerp(projectedPos.y, pos.y, 0.4);
     stroke(0);
     fill(255);
     rect(projectedPos.x-(size/2), projectedPos.y-size-0.5, size, size);

@@ -33,12 +33,15 @@ class Platform {
   void setX(float num) {
     pos.x = num;
   }
+  
+  void move() {
+    projectedPos.y = lerp(projectedPos.y, pos.y, 0.1);
+    projectedPos.x = lerp(projectedPos.x, pos.x, 0.1);
+  }
 
   void render(int c) {
     stroke(0);
     fill(c);
-    projectedPos.y = lerp(projectedPos.y, pos.y, 0.1);
-    projectedPos.x = lerp(projectedPos.x, pos.x, 0.1);
     
     p = createShape();
     p.beginShape();
