@@ -1,7 +1,7 @@
 class Platform {
   int side;
   PVector pos;
-
+  PImage texture = loadImage("Images/platformTest.png");
   PVector projectedPos;
   
   PShape p;
@@ -51,6 +51,8 @@ class Platform {
     p.vertex(0, 10);
     p.vertex(0,0);
     p.endShape();
+    
+    //image(texture, projectedPos.x-100, projectedPos.y);
     shape(p, projectedPos.x, projectedPos.y);
   }
 }

@@ -23,7 +23,7 @@ boolean setup = true;
 boolean paused = false;
 
 void setup() {
-  size(1000, 1000);
+  size(500, 1000);
   frameRate(60);
 
   saveFile = loadTable("data/saveFile.csv", "header");
@@ -54,7 +54,7 @@ void setup() {
 }
 
 void draw() {
-  background(#c2d6f6);
+  background(#c2d6f6); //#c2d6f6
   musicPlayer.musicRun();
   musicPlayer.spawnSoundRun();
 
@@ -94,12 +94,8 @@ void draw() {
     fill(50, 50, 50, 100);
     rect(0, 0, width, height);
     fill(100);
-    triangle(width-40, 10, width-40, 40, width-15, 25);
     musicPlayer.muteText();
   } else {
-    fill(100);
-    rect(width-40, 10, 10, 30);
-    rect(width-25, 10, 10, 30);
   }
 }
 
@@ -169,7 +165,7 @@ void keyPressed() {
       movePlayer(0);
     }
   }
-  if (key == 'p') {
+  if (key == 'p' || key == ' ') {
     paused = !paused;
   }
   if (key == 'm') {
