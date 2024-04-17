@@ -102,14 +102,14 @@ void draw() {
 void kill() {
   stamina.setToMax();
   musicPlayer.played = false;
-  
+
   if (stepCount > highScore) {
     highScore = stepCount;
-    
+
     score.setInt("score", highScore);
     saveTable(saveFile, "data/saveFile.csv");
   }
-  
+
   stepCount = 0;
 }
 
@@ -118,6 +118,7 @@ void movePlayer(int direction) {
     (direction == 1 && platforms.get(2).side == 1) ||
     (direction == -1 && platforms.get(2).side == -1)) {
     move();
+
     musicPlayer.randomStepSound();
     stamina.setToMax();
 
@@ -174,9 +175,6 @@ void keyPressed() {
 }
 
 void mouseClicked() {
-  if (mouseX > 50 && mouseY < 50) {
-    paused = !paused;
-  }
 }
 
 void keyReleased() {

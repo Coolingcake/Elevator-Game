@@ -1,8 +1,8 @@
 import processing.sound.*;
 class MusicPlayer {
   ArrayList<SoundFile> stepSounds = new ArrayList<SoundFile>();
-  int totalFiles = 13;
-  SoundFile spawnSound;
+  //int totalFiles = 13;
+  SoundFile dyingSound;
   SoundFile music;
   boolean played = true;
   boolean muted = true;
@@ -10,13 +10,24 @@ class MusicPlayer {
   boolean musicStarted = false;
 
   MusicPlayer() {
-    spawnSound = new SoundFile(elevator.this, "Sounds/Player Spawn Sound.wav");
+    dyingSound = new SoundFile(elevator.this, "Sounds/Dying Sound1.wav");
+
     music = new SoundFile(elevator.this, "Music/Queue Time Song 1.wav");
-    
+
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound a set 1.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound a set 2.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound e set 1.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound e set 2.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound f set 1.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound f set 2.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound g set 1.wav"));
+    stepSounds.add(new SoundFile(elevator.this, "Sounds/step up sound g set 2.wav"));
+    /*
     for (int i = 1; i <= totalFiles; i++) {
-      String stepSoundName = String.format("Sounds/Step Up Sound %d.wav", i);
-      stepSounds.add(new SoundFile(elevator.this, stepSoundName));
-    }
+     String stepSoundName = String.format("Sounds/Step Up Sound %d.wav", i);
+     stepSounds.add(new SoundFile(elevator.this, stepSoundName));
+     }
+     */
   }
 
   void musicRun() {
@@ -39,7 +50,7 @@ class MusicPlayer {
   void spawnSoundRun() {
     if (!played) {
       if (!muted) {
-        spawnSound.play();
+        //dyingSound.play();
       }
       played = true;
     }
@@ -51,7 +62,7 @@ class MusicPlayer {
 
   void randomStepSound() {
     if (!muted) {
-      stepSounds.get(r.nextInt(stepSounds.size())).play();
+      stepSounds.get(r.nextInt(musicPlayer.stepSounds.size())).play();
     }
   }
 
